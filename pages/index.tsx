@@ -1,11 +1,14 @@
 import { Welcome } from '../components/Welcome/Welcome';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
+
+import { Center } from '@mantine/core';
 
 export default function HomePage() {
   return (
     <>
+    <Center>
       <Welcome />
-      <ColorSchemeToggle />
+
+      </Center>
     </>
   );
 }

@@ -23,9 +23,12 @@
     "@mantine/hooks": "7.0.1",
     "@next/bundle-analyzer": "^13.4.4",
     "@tabler/icons-react": "^2.20.0",
+    "deso-protocol": "^2.5.0",
     "next": "13.4.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-deso-protocol": "^0.0.3",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
