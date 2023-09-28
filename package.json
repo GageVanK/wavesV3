@@ -19,8 +19,10 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@livepeer/react": "^2.8.6",
     "@mantine/core": "7.0.1",
     "@mantine/hooks": "7.0.1",
+    "@mantine/notifications": "^7.0.2",
     "@next/bundle-analyzer": "^13.4.4",
     "@tabler/icons-react": "^2.20.0",
     "deso-protocol": "^2.5.0",
@@ -28,6 +30,7 @@
     "react": "18.2.0",
     "react-deso-protocol": "^0.0.3",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-icons": "^4.11.0"
   },
   "devDependencies": {
