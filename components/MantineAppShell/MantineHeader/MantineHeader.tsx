@@ -1,39 +1,23 @@
 import {
-    HoverCard,
     Group,
     Button,
     UnstyledButton,
     Text,
-    SimpleGrid,
-    ThemeIcon,
-    Anchor,
-    Divider,
-    Center,
     Box,
     Burger,
     Drawer,
-    Collapse,
     ScrollArea,
     rem,
     useMantineTheme,
     ActionIcon,
     Tooltip,
     Badge,
-    Title,
     Space,
     Menu,
     Avatar,
   } from '@mantine/core';
-  
-  import { useDisclosure } from '@mantine/hooks';
-  import {
-    IconNotification,
-    IconCode,
-    IconBook,
-    IconChartPie3,
-    IconFingerprint,
-    IconCoin,
-    IconChevronDown,
+import { useDisclosure } from '@mantine/hooks';
+import {
     IconBellRinging,
     IconHome2,
     IconUser,
@@ -42,14 +26,13 @@ import {
     IconReceipt2,
     IconSwitchHorizontal,
   } from '@tabler/icons-react';
-  import classes from './MantineHeader.module.css';
+import classes from './MantineHeader.module.css';
 import Link from 'next/link';
 import { GiWaveCrest } from 'react-icons/gi';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { identity } from 'deso-protocol';
 import { useContext } from 'react';
 import { DeSoIdentityContext } from 'react-deso-protocol';
-
   
 
   
@@ -59,6 +42,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
     const theme = useMantineTheme();
     const { currentUser, alternateUsers, isLoading } =
     useContext(DeSoIdentityContext);
+    
     
       const handleUserSwitch = (publicKey: string) => {
     identity.setActiveUser(publicKey);
@@ -75,7 +59,11 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
     }
   };
 
+ 
   
+
+ 
+ 
     
   
     return (
@@ -139,6 +127,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
             </Group>
   
             <Group visibleFrom="sm">
+              <ColorSchemeToggle/>
             {!currentUser && (!alternateUsers || alternateUsers.length === 0) && (
                           <>
                             <Button
@@ -174,7 +163,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
                                  <Avatar
               
                 
-              variant="light" radius="xl" size="lg" color="rgba(0, 174, 186, 1)"
+              variant="light" radius="xl" size={48} color="rgba(0, 174, 186, 1)"
                
                 src={
                   `https://node.deso.org/api/v0/get-single-profile-picture/${currentUser.PublicKeyBase58Check}` ||
@@ -253,10 +242,10 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
         <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
-        size="77%"
+        size="70%"
         padding="md"
         title={
-          <Text size="xl"  fs="italic" variant="gradient"
+          <Text fw={700} size="xl"  fs="italic" variant="gradient"
       gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>Waves</Text>
         }
         className={classes.hiddenDesktop}
@@ -274,7 +263,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
       variant="gradient"
       size="xl"
       aria-label="Gradient action icon"
-      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+      gradient={{ from: 'blue', to: 'cyan',  deg: 360  }}
     >
       <IconHome2/>
     </ActionIcon>
@@ -288,7 +277,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
       variant="gradient"
       size="xl"
       aria-label="Gradient action icon"
-      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+      gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
     >
       <IconUser/>
     </ActionIcon>
@@ -302,7 +291,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
       variant="gradient"
       size="xl"
       aria-label="Gradient action icon"
-      gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+      gradient={{ from: 'blue', to: 'cyan', deg: 150 }}
     >
       <IconWallet/>
     </ActionIcon>
@@ -338,7 +327,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
                             <Button
                               leftSection={<GiWaveCrest size="1rem" />}
                               variant="gradient"
-                              gradient={{ from: "cyan", to: "indigo" }}
+                              gradient={{ from: "cyan", to: "indigo", deg: 150 }}
                               onClick={() => identity.login()}
                             >
                               Sign Up
@@ -359,7 +348,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
                               <Button
                                 leftSection={<GiWaveCrest size="1rem" />}
                                 variant="gradient"
-                                gradient={{ from: "cyan", to: "indigo" }}
+                                gradient={{ from: "cyan", to: "indigo", deg: 150 }}
                               >
                                 {currentUser.ProfileEntryResponse?.Username ?? currentUser.PublicKeyBase58Check}
                               </Button>

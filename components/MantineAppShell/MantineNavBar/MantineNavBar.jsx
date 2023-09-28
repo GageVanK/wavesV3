@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Group, Code, Avatar, Center, Divider, Space, Text, useStyles } from '@mantine/core';
+import { Group, Code, Avatar, Center, Divider, Space, Text, ActionIcon, UnstyledButton } from '@mantine/core';
 import {
   IconBellRinging,
   IconFingerprint,
@@ -12,10 +12,11 @@ import {
   IconLogout,
 } from '@tabler/icons-react';
 import { RxDotFilled } from "react-icons/rx";
+import { GiWaveSurfer } from "react-icons/gi";
 import classes from './MantineNavBar.module.css';
 import { getFollowersForUser, getIsFollowing, getUnreadNotificationsCount, setNotificationMetadata } from 'deso-protocol';
 import { DeSoIdentityContext } from 'react-deso-protocol';
-
+import Link from 'next/link';
 
 export function MantineNavBar() {
   const [active, setActive] = useState('Billing');
@@ -72,52 +73,21 @@ export function MantineNavBar() {
   };
 
   
-  const fetchUnreadNotifications = async () => {
-    const notifData = await getUnreadNotificationsCount({
-      PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-    });
-
-    console.log(notifData);
-    setUnreadNotifs(notifData.NotificationsCount)
-  };
-
-  // Fetch the followingPosts when the currentUser changes
-  useEffect(() => {
-    if (currentUser) {
-      fetchFollowingPosts();
-      fetchUnreadNotifications();
-    }
-  }, [currentUser]);
-
-  
-
  
-  const resetUnreadNotifications = async () => {
-   
-    const notifData = await getUnreadNotificationsCount({
-      PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-    });
-    await setNotificationMetadata({
-      PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-      UnreadNotifications: 0,
-      LastUnreadNotificationIndex:  notifData.LastUnreadNotificationIndex
-    });
-
-    setUnreadNotifs(0)
-
-  };
 
 
   return (
     
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
-      
-            <Center>
-              <Text size="xs" fw={500} c="dimmed">
-                Following Waves
+      <Space h="lg" />
+            
+              <Text fs="italic" size="md" fw={800} c="dimmed" >
+                Following
               </Text>
-            </Center>
+              <Space w={2}/>
+              
+           
             <Space h="sm" />
             {currentUser ? (
               followingWaves && followingWaves.length > 0 ? (
@@ -125,23 +95,13 @@ export function MantineNavBar() {
                   .filter((post) => post.Username !== currentUser.Username)
                   .map((post) => {
                     return (
+                   <UnstyledButton component={Link}
+                   href={`/wave/${post.Username}`} style={{ width: "100%" }}>
                       <div key={post.PublicKeyBase58Check}
-                        
+                          
                           className={(classes.link)}
                           onClick={() => {
-                            const state = {
-                              userPublicKey: post.PublicKeyBase58Check,
-                              userName:
-                                post.Username || post.PublicKeyBase58Check,
-                              description: post.Description || null,
-                              largeProfPic:
-                                post.ExtraData?.LargeProfilePicURL || null,
-                              featureImage:
-                                post.ExtraData?.FeaturedImageURL || null,
-                            };
-
-                           
-
+                      
                             setActive(post);
                           }}
                         >
@@ -169,6 +129,7 @@ export function MantineNavBar() {
                           </Group>
                        
                       </div>
+                      </UnstyledButton>
                     );
                   })
               ) : (
@@ -195,30 +156,21 @@ export function MantineNavBar() {
             <Divider my="sm" />
             <Space h="lg" />
 
-            <Center>
-              <Text size="xs" weight={500} c="dimmed">
+            
+            <Text fs="italic" size="md" fw={800} c="dimmed" >
                 Recommended Waves
               </Text>
-            </Center>
+          
 
             <Space h="sm" />
             {filteredPosts && filteredPosts.length > 0 ? (
               filteredPosts.map((post) => (
+                <UnstyledButton component={Link}
+                   href={`/wave/${post.Username}`} style={{ width: "100%" }}>
                 <div key={post.PublicKeyBase58Check}
               
                     className={(classes.link)}
                     onClick={() => {
-                      const state = {
-                        userPublicKey: post.PublicKeyBase58Check,
-                        userName: post.Username || post.PublicKeyBase58Check,
-                        description: post.Description || null,
-                        largeProfPic:
-                          post.ExtraData?.LargeProfilePicURL || null,
-                        featureImage: post.ExtraData?.FeaturedImageURL || null,
-                      };
-
-                   
-
                       setActive(post);
                     }}
                   >
@@ -246,6 +198,7 @@ export function MantineNavBar() {
                     </Group>
                  
                 </div>
+                </UnstyledButton>
               ))
             ) : (
               

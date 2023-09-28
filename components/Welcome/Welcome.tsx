@@ -1,5 +1,5 @@
 
-import { ThemeIcon, Text, Title, Container, SimpleGrid, rem, Center } from '@mantine/core';
+import { ThemeIcon, Text, Title, Container, SimpleGrid, rem, Center, Button, Space } from '@mantine/core';
 import { VscLink } from "react-icons/vsc";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineAttachMoney } from "react-icons/md";
@@ -8,7 +8,9 @@ import { RiDatabaseLine } from "react-icons/ri";
 import { GiReceiveMoney } from "react-icons/gi";
 import { RiCheckboxMultipleLine } from "react-icons/ri";
 import { PiUsersThreeDuotone } from "react-icons/pi";
+import { GiWaveCrest } from "react-icons/gi";
 import classes from './Welcome.module.css';
+import { ERROR_TYPES, identity } from 'deso-protocol';
 
 export const WAVESFEATURE = [
   {
@@ -39,7 +41,7 @@ export const WAVESFEATURE = [
     icon: RiCheckboxMultipleLine,
     title: 'Multi-Platform Streaming',
     description:
-      'Waves aims to empower streamers by providing tools to stream to multiple platforms right from your Waves Dashboard, maxmizing your audience. Currently, waves supports multistreaming to YouTube, Kick, and Twitch. Additional platforms can be added upon request.',
+      'Waves aims to empower streamers by providing tools to stream to multiple platforms right from your Waves Dashboard, maximizing your audience. Currently, waves supports multistreaming to YouTube, Kick, and Twitch. Additional platforms can be added upon request.',
   },
   {
     icon: PiUsersThreeDuotone,
@@ -89,7 +91,8 @@ export function Welcome() {
   return (
     <Container className={classes.wrapper}>
       <Center>
-      <Text size="xl" fw={900} fs="italic" variant="gradient" gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>Waves</Text>
+        
+      <Text size="xl" fw={900} fs="italic" variant="gradient" gradient={{ from: 'blue', to: 'cyan', deg: 176 }}>Waves</Text>
       </Center>
       <Container size={560} p={0}>
       <Center>
@@ -107,6 +110,30 @@ export function Welcome() {
       >
         {features}
       </SimpleGrid>
+<Space h="sm"/>
+      <Button
+            gradient={{ from: 'blue', to: 'cyan', deg: 354 }}
+       fullWidth
+          leftSection={<GiWaveCrest size="1rem" />}
+          variant="gradient"
+          radius="lg"
+    
+          onClick={() => {
+            identity
+              .login({
+                getFreeDeso: true,
+              })
+              .catch((err) => {
+                if (err?.type === ERROR_TYPES.NO_MONEY) {
+                  alert("You need DESO in order to post!");
+                } else {
+                  alert(err);
+                }
+              });
+          }}
+        >
+          Sign Up
+        </Button>
     </Container>
   );
 }
