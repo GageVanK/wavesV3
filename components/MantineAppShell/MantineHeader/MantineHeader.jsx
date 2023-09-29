@@ -43,7 +43,7 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
     const { currentUser, alternateUsers } = useContext(DeSoIdentityContext);
     
     
-      const handleUserSwitch = (publicKey: string) => {
+      const handleUserSwitch = (publicKey) => {
     identity.setActiveUser(publicKey);
   };
 
@@ -60,33 +60,37 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
 
   const [unreadNotifs, setUnreadNotifs] = useState(0);
   const fetchUnreadNotifications = async () => {
+  
      const notifData = await getUnreadNotificationsCount({
        PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
      });
  
-     console.log(notifData);
+     console.log("poo" + notifData);
      setUnreadNotifs(notifData.NotificationsCount)
+    
    };
  
     // Fetch the followingPosts when the currentUser changes
     useEffect(() => {
      if (currentUser) {
+      
        fetchUnreadNotifications();
      }
    }, [currentUser]);
  
    const resetUnreadNotifications = async () => {
      const notifData = await getUnreadNotificationsCount({
-       PublicKeyBase58Check: currentUser?.PublicKeyBase58Check,
+       PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
      });
      await setNotificationMetadata({
-       PublicKeyBase58Check: currentUser?.PublicKeyBase58Check,
+       PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
        UnreadNotifications: 0,
        LastUnreadNotificationIndex:  notifData.LastUnreadNotificationIndex
      });
  
      setUnreadNotifs(0)
    };
+ 
   
 
  

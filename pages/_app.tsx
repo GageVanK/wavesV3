@@ -100,7 +100,7 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
     >
       <AppShell.Header>
-        <MantineHeader />
+     <MantineHeader/>
         {!desktopOpened ? (
           <Tooltip position="right-start" label="Open Sidebars">
       <ActionIcon onClick={toggleDesktop} visibleFrom="sm"  >
