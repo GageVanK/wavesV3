@@ -69,8 +69,6 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
    };
  
     // Fetch the followingPosts when the currentUser changes
-    useEffect(() => {
-     if (currentUser) {
        fetchUnreadNotifications();
      }
    }, [currentUser]);
@@ -84,8 +82,13 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
        UnreadNotifications: 0,
        LastUnreadNotificationIndex:  notifData.LastUnreadNotificationIndex
      });
+       
+    useEffect(() => {
+        
+     if (currentUser) {
+         
  
-     setUnreadNotifs(0)
+     fetchUnreadNotifications()
    };
   
 
