@@ -1,6 +1,6 @@
 
 import { useEffect, useState, useContext } from "react";
-import Surf from "../../assets/surfing.png"
+
 
 import { Player } from "@livepeer/react";
 import {
@@ -672,10 +672,7 @@ export default function Wave() {
                   growth
                 </Text>
                 <Space h="md" />
-                <Center>
-                    <a href="https://www.flaticon.com/free-icons/swell" title="swell icons">
-              <Image  maw={111} mx="auto" radius="md" src={Surf} alt="Random image" /></a>
-                </Center>
+                
                 <Space h="md" />
                 <Center>
                   <Box>

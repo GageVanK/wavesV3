@@ -30,18 +30,17 @@ import classes from './MantineHeader.module.css';
 import Link from 'next/link';
 import { GiWaveCrest } from 'react-icons/gi';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
-import { identity } from 'deso-protocol';
-import { useContext } from 'react';
+import { identity, getUnreadNotificationsCount, setNotificationMetadata } from 'deso-protocol';
+import { useContext, useEffect, useState} from 'react';
 import { DeSoIdentityContext } from 'react-deso-protocol';
-  
+
 
   
   export function MantineHeader() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const theme = useMantineTheme();
-    const { currentUser, alternateUsers, isLoading } =
-    useContext(DeSoIdentityContext);
+    const { currentUser, alternateUsers } = useContext(DeSoIdentityContext);
     
     
       const handleUserSwitch = (publicKey: string) => {
@@ -59,7 +58,35 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
     }
   };
 
+  const [unreadNotifs, setUnreadNotifs] = useState(0);
+  const fetchUnreadNotifications = async () => {
+     const notifData = await getUnreadNotificationsCount({
+       PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+     });
  
+     console.log(notifData);
+     setUnreadNotifs(notifData.NotificationsCount)
+   };
+ 
+    // Fetch the followingPosts when the currentUser changes
+    useEffect(() => {
+     if (currentUser) {
+       fetchUnreadNotifications();
+     }
+   }, [currentUser]);
+ 
+   const resetUnreadNotifications = async () => {
+     const notifData = await getUnreadNotificationsCount({
+       PublicKeyBase58Check: currentUser?.PublicKeyBase58Check,
+     });
+     await setNotificationMetadata({
+       PublicKeyBase58Check: currentUser?.PublicKeyBase58Check,
+       UnreadNotifications: 0,
+       LastUnreadNotificationIndex:  notifData.LastUnreadNotificationIndex
+     });
+ 
+     setUnreadNotifs(0)
+   };
   
 
  
@@ -120,8 +147,15 @@ import { DeSoIdentityContext } from 'react-deso-protocol';
       size="xl"
       aria-label="Gradient action icon"
       gradient={{ from: 'blue', to: 'cyan', deg: 270 }}
+      onClick={resetUnreadNotifications}
     >
+     
       <IconBellRinging/>
+     
+      { unreadNotifs > 0 && (
+          <Text  className={classes.notificationCount} fz="sm" fw={700} c="orange">{unreadNotifs}</Text>
+        )}
+        
     </ActionIcon>
     </Tooltip>
             </Group>

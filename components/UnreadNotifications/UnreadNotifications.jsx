@@ -35,7 +35,7 @@ export default function UnreadNotifications () {
       // Fetch the followingPosts when the currentUser changes
       useEffect(() => {
         if (currentUser) {
-          fetchFollowingPosts();
+         
           fetchUnreadNotifications();
         }
       }, [currentUser]);
