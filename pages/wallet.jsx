@@ -5,6 +5,7 @@ import {
   Text,
   Divider,
   Container,
+  Card,
   Paper,
   Group, 
   CopyButton, 
@@ -73,13 +74,42 @@ useEffect(() => {
         }
         labelPosition="center"
       />
-      <Space h="xl" />
+
+
+
+
+
+<Space h="lg"/>
+<Container>
       <div>
         {currentUser ? (
           <>
         
           <Space h='md'/>
-          <Paper shadow="xl" p="lg" withBorder>
+        
+          <Card shadow="xl" p="lg" withBorder>
+            
+          <Card.Section>
+            <Group justify="right">
+            <CopyButton value={currentUser.PublicKeyBase58Check} timeout={2000}>
+  {({ copied, copy }) => (
+    <Tooltip label={copied ? 'Copied' : 'Copy Your Public Key'} withArrow position="right">
+      <ActionIcon size="md" color={copied ? 'teal' : 'blue'} onClick={copy}>
+        {copied ? <IconCheck size="1.2rem" /> : <IconKey size="1.2rem" />}
+      </ActionIcon>
+    </Tooltip>
+  )}
+</CopyButton>
+
+            </Group>
+            
+
+         
+
+            
+            
+            
+            <Space h='lg'/>
           <Center>
         
         <Group>
@@ -93,28 +123,23 @@ useEffect(() => {
             alt="Profile Picture"
           />
   <Text fw={700}> {currentUser.ProfileEntryResponse.Username}'s Balance</Text>
-       <CopyButton value={currentUser.PublicKeyBase58Check} timeout={2000}>
-  {({ copied, copy }) => (
-    <Tooltip label={copied ? 'Copied' : 'Copy Your Public Key'} withArrow position="right">
-      <ActionIcon color={copied ? 'teal' : 'blue'} onClick={copy}>
-        {copied ? <IconCheck size="1rem" /> : <IconKey size="1rem" />}
-      </ActionIcon>
-    </Tooltip>
-  )}
-</CopyButton>
+       
 </Group>
 <Space h='md'/>
 
       </Center>
-      <Space h='md'/>  
+      <Space h='sm'/>  
         
         
            
-           <Space h='xs'/>
+           
             <Text fw={500} c='dimmed' align='center' >{userDesoBalance} $DESO = ${usdBalance} USD</Text>
             <Space h='lg'/>
             
-         
+            </Card.Section>
+        
+          
+      
           <Divider my="sm" />
           <Space h='md'/>
           <iframe
@@ -127,13 +152,13 @@ useEffect(() => {
             }}
             src={`https://heroswap.com/widget?affiliateAddress=${currentUser.PublicKeyBase58Check}`}
           />
-          </Paper>
+          </Card>
           <Space h='md'/>
          
         </>
         ) : (
           <>
-            <Space h="xl" />
+            
             <Container size="30rem" px={0}>
               <Paper shadow="xl" p="lg" withBorder>
                 <Center>
@@ -167,7 +192,13 @@ useEffect(() => {
                     Login
                   </Button>
                 </Center>
+                <Space h='md'/>
+
+                
+      <Space h="md" />
               </Paper>
+
+            
             </Container>
             <Space h="md" />
             <Center>
@@ -186,6 +217,7 @@ useEffect(() => {
           </>
         )}
       </div>
+      </Container>
       <Space h={222} />
     </>
   );

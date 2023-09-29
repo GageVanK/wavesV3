@@ -1,4 +1,4 @@
-import { Tabs, rem } from '@mantine/core';
+import { Container, Tabs, rem } from '@mantine/core';
 
 import classes from './HomeTabs.module.css';
 import { BsFire } from "react-icons/bs";
@@ -6,8 +6,10 @@ import { GiWaveCrest } from "react-icons/gi";
 import { FaUsers } from "react-icons/fa";
 export function HomeTabs() {
   return (
+    
     <Tabs variant="unstyled" defaultValue="settings" classNames={classes}>
-      <Tabs.List grow>
+      <Container>
+      <Tabs.List style={{  display: 'flex', flexWrap: 'nowrap' }} grow>
         <Tabs.Tab
           value="settings"
           leftSection={<GiWaveCrest style={{ width: rem(16), height: rem(16) }} />}
@@ -27,6 +29,9 @@ export function HomeTabs() {
           Hot Feed
         </Tabs.Tab>
       </Tabs.List>
+      </Container>
+
     </Tabs>
+    
   );
 }

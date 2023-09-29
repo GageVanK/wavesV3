@@ -7,6 +7,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { MantineHeader } from '../components/MantineAppShell/MantineHeader/MantineHeader';
 import { RiArrowLeftDoubleLine, RiArrowRightDoubleLine } from 'react-icons/ri';
 import { MantineNavBar } from '../components/MantineAppShell/MantineNavBar/MantineNavBar';
+import { MantineAside } from '../components/MantineAppShell/MantineAside/MantineAside';
 import { configure } from 'deso-protocol';
 import { DeSoIdentityProvider } from 'react-deso-protocol';
 import {
@@ -126,9 +127,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <MantineNavBar/>
     </AppShell.Navbar>
     <AppShell.Aside>
- 
+    <MantineAside/>
  </AppShell.Aside>
-  
+ 
       <AppShell.Main >
       <Container
     style={{

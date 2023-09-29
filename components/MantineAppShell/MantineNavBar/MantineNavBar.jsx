@@ -74,6 +74,13 @@ export function MantineNavBar() {
 
   
  
+// Fetch the followingPosts when the currentUser changes
+useEffect(() => {
+  if (currentUser) {
+    fetchFollowingPosts();
+   
+  }
+}, [currentUser]);
 
 
   return (
