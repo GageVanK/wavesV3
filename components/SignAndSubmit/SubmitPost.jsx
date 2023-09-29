@@ -162,8 +162,6 @@ import {
       return (
         <>
           <Welcome />
-          <Space h="md" />
-  
           <Container size="30rem" px={0}>
             <Paper m="md" shadow="lg" radius="sm" p="xl" withBorder>
               <Group>
